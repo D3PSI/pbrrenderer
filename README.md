@@ -60,24 +60,27 @@ At the moment, there is no documentation as this project is still early in devel
  Here is the base program being used in the repository for testing:
 
     /**
-    *  Welcome to pbrrenderer by D3PSI
-    * 
-    *  This project is open-source and licensed under the GNU General Public License v3.0
-    *  Please refer to LICENSE.md for further information
-    * 
-    *  Refer to README.md for installation and compilation instructions
-    */
+     *  Welcome to pbrrenderer by D3PSI
+     * 
+     *  This project is open-source and licensed under the GNU General Public License v3.0
+     *  Please refer to LICENSE.md for further information
+     * 
+     *  Refer to README.md for installation and compilation instructions
+     */
     #include "pbr/PBR.hpp"
 
-
+    /**
+     * Serves as a keyboard input callback function for the PBR core engine
+     * @param _window A pointer to the GLFWwindow
+     */
     void keyboardInputCallback(GLFWwindow* _window) {
         if(glfwGetKey(_window, GLFW_KEY_SPACE) == GLFW_PRESS)
             std::cout << "This is an example on how you can define own key actions.\n";
     }
 
     /**
-    *  Defines the main entry point for the application
-    */
+     *  Defines the main entry point for the application
+     */
     int main() {
         pbr::pbrInit();
         pbr::pbrTitle("PBR by D3PSI");
@@ -104,7 +107,7 @@ Then just simply make a copy of `libassimp.so.3` or any other version and rename
     
 Like this.
 
-This is also an problem with the boost library for libboost_filesystem.so.1.71.0 libboost_system.so.1.71.0 and should be solved this way:
+This is also an problem with the boost library for `libboost_filesystem.so.1.71.0` and `libboost_system.so.1.71.0` and should be solved this way:
 
     sudo cp /usr/lib64/libboost_filesystem.so /usr/lib64/libboost_filesystem.so.1.71.0
     sudo cp /usr/lib64/libboost_system.so /usr/lib64/libboost_system.so.1.71.0
