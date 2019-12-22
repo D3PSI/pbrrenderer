@@ -72,5 +72,14 @@ else
         echo "Failed to build the project!"
         exit 1
     fi
+    echo "Creating shortcuts..."
+    if mkdir -p /usr/bin/pbrrenderer; then
+        cp -R res/ shaders/ pbr PBR\ by\ D3PSI.desktop /usr/bin/pbrrenderer/
+        ln -s -f /usr/bin/pbrrenderer/PBR\ by\ D3PSI.desktop /usr/share/applications/PBR\ by\ D3PSI.desktop
+        echo "Successfully installed shortcuts"
+    else
+        echo "Failed to install shortcuts!"
+        exit
+    fi
     exit 0
 fi

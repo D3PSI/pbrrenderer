@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PBR by D3PSI
+Comment=Physically-Based Rendering in OpenGL
+Exec=/usr/bin/pbrrenderer/pbr
+Icon=/usr/bin/res/images/lion-cropped.png
+Path=/usr/bin/pbrrenderer
+Terminal=false
+StartupNotify=false
