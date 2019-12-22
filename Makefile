@@ -9,8 +9,9 @@ pbr_ui = $(pbrrenderer_main)/pbr_ui
 pbr_util = $(pbrrenderer_main)/pbr_util
 pbr_util_flags = $(pbr_util)/flags
 pbr_util_io = $(pbr_util)/io
+pbr_util_initializers = $(pbr_util)/initializers
 
-COMPONENTS = $(pbr_main) $(pbr_core) $(pbr_ui) $(pbr_util) $(pbr_util_flags) $(pbr_util_io)
+COMPONENTS = $(pbr_main) $(pbr_core) $(pbr_ui) $(pbr_util) $(pbr_util_flags) $(pbr_util_io) $(pbr_util_initializers)
 
 .PHONY: all install run debug clean
 

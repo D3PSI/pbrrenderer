@@ -15,6 +15,9 @@ namespace pbr {
 
     namespace util {
 
+        /**
+         * Declares a sub namespace explicitly for I/O-utility
+         */
         namespace io {
 
             /**

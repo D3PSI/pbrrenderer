@@ -11,6 +11,9 @@ namespace pbr {
 
     namespace util {
 
+        /**
+         * Declares a sub namespace explicitly for flags and enums
+         */
         namespace flags {
 
             /**

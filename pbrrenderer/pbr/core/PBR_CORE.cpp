@@ -29,6 +29,7 @@ namespace pbr {
         unsigned int VBO;
         unsigned int VAO;
         pbr::core::PBRShaderInterface* shaderMain;
+        pbr::core::PBRVertexArrayInterface< float >* vaoMain;
 
         pbr::util::flags::PBR_STATUS init() {
             pbr::ui::initLoadingScreen();
@@ -69,6 +70,7 @@ namespace pbr {
 
         pbr::util::flags::PBR_STATUS clean() {
             delete shaderMain;
+            delete vaoMain;
             return pbr::util::flags::PBR_OK;
         } 
 
@@ -105,8 +107,7 @@ namespace pbr {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             shaderMain->bind();
-            glBindVertexArray(VAO);
-            glDrawArrays(GL_TRIANGLES, 0, 3);
+            vaoMain->draw();
             return pbr::util::flags::PBR_OK;
         }
 
@@ -116,34 +117,24 @@ namespace pbr {
         }
 
         pbr::util::flags::PBR_STATUS setupBuffers() {
-            glGenVertexArrays(1, &VAO);
-            glGenBuffers(1, &VBO);
-            glBindVertexArray(VAO);
-            glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            glBufferData(
-                GL_ARRAY_BUFFER, 
-                sizeof(vertices[0]) * vertices.size(), 
-                vertices.data(), 
-                GL_STATIC_DRAW);
-            glVertexAttribPointer(
-                0,
-                3, 
-                GL_FLOAT, 
-                GL_FALSE, 
-                6 * sizeof(vertices[0]), 
-                (void*)0);
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(
-                1,
-                3,
-                GL_FLOAT,
-                GL_FALSE,
-                6 * sizeof(vertices[0]),
-                (void*)(3 * sizeof(vertices[0]))
-            );
-            glEnableVertexAttribArray(1);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
+            std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > vaos;
+            pbr::util::initializers::PBRVertexAttributeArrayInitializer posVAO  = {};
+            posVAO._index                                                       = 0;
+            posVAO._size                                                        = 3;
+            posVAO._type                                                        = GL_FLOAT;
+            posVAO._normalized                                                  = GL_FALSE;
+            posVAO._stride                                                      = 6 * sizeof(vertices[0]);
+            posVAO._offset                                                      = (void*)0;
+            vaos.push_back(posVAO);
+            pbr::util::initializers::PBRVertexAttributeArrayInitializer colVAO  = {};
+            colVAO._index                                                       = 1;
+            colVAO._size                                                        = 3;
+            colVAO._type                                                        = GL_FLOAT;
+            colVAO._normalized                                                  = GL_FALSE;
+            colVAO._stride                                                      = 6 * sizeof(vertices[0]);
+            colVAO._offset                                                      = (void*)(3 * sizeof(vertices[0]));
+            vaos.push_back(colVAO);
+            vaoMain = new pbr::core::PBRVertexArrayInterface< float >(vertices, vaos);
             return pbr::util::flags::PBR_OK;
         }
 

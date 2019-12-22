@@ -11,6 +11,7 @@
 #include "PBRMakros.hpp"
 #include "io/PBR_UTIL_IO.hpp"
 #include "flags/PBR_UTIL_FLAGS.hpp"
+#include "initializers/PBR_UTIL_INITIALIZERS.hpp"
 
 
 namespace pbr {

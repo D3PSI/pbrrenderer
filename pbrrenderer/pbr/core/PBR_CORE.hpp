@@ -10,6 +10,7 @@
 #include "../ui/PBR_UI.hpp"
 #include "../util/PBR_UTIL.hpp"
 #include "PBRShaderInterface.hpp"
+#include "PBRVertexArrayInterface.hpp"
 
 #include <iostream>
 
