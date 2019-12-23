@@ -1,6 +1,4 @@
 #!/bin/bash
-FILE="/tmp/out.$$"
-GREP="/bin/grep"
 echo "Thank you for choosing to install this beautiful piece of software created by D3PSI called pbrrenderer!"
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 1>&2

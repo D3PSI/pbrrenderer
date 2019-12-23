@@ -19,6 +19,7 @@
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "core/PBR_CORE.hpp"
 #include "ui/PBR_UI.hpp"
 #include "util/PBR_UTIL.hpp"

@@ -46,6 +46,46 @@ namespace pbr {
             pbr::util::flags::PBR_STATUS bind(void);
 
             /**
+             * Sends a 4 x 4 matrix to the shaders
+             * @param _mat The 4 x 4 matrix to send to the shaders
+             * @param _name The name of the uniform variable
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS upload(glm::mat4 _mat, const std::string _name);
+
+            /**
+             * Sends a 3-component vector to the shaders
+             * @param _vec The 3-component vector to send to the shaders
+             * @param _name The name of the uniform variable
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS upload(glm::vec3 _vec, const std::string _name);
+
+            /**
+             * Sends a float to the shaders
+             * @param _val The float to send to the shaders
+             * @param _name The name of the uniform variable
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS upload(float _val, const std::string _name);
+
+            /**
+             * Sends an integer to the shaders
+             * @param _val The integer to send to the shaders
+             * @param _name The name of the uniform variable
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS upload(int32_t _val, const std::string _name);
+
+            /**
+             * Sends a boolean to the shaders
+             * @param _val The boolean to send to the shaders
+             * @param _name The name of the uniform variable
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS upload(bool _val, const std::string _name);
+
+            /**
              * Default destructor
              */
             ~PBRShaderInterface(void);

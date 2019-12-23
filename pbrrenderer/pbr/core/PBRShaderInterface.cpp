@@ -72,6 +72,34 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::bind() {
     return pbr::util::flags::PBR_OK;
 }
 
+pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(glm::mat4 _mat, const std::string _name) {
+    glUniformMatrix4fv(
+        glGetUniformLocation(this->ID, _name.c_str()), 
+        1, 
+        GL_FALSE, 
+        glm::value_ptr(_mat));
+    return pbr::util::flags::PBR_OK;
+}
+
+pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(glm::vec3 _vec, const std::string _name) {
+    glUniform3fv(glGetUniformLocation(this->ID, _name.c_str()), 1, glm::value_ptr(_vec));
+    return pbr::util::flags::PBR_OK;
+}
+
+pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(float _val, const std::string _name) {
+    glUniform1f(glGetUniformLocation(ID, _name.c_str()), _val);
+    return pbr::util::flags::PBR_OK;
+}
+
+pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(int32_t _val, const std::string _name) {
+    glUniform1i(glGetUniformLocation(ID, _name.c_str()), _val);
+    return pbr::util::flags::PBR_OK;
+}
+
+pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(bool _val, const std::string _name) {
+    return this->upload(static_cast< int32_t >(_val), _name);
+}
+
 pbr::core::PBRShaderInterface::~PBRShaderInterface() {
     
 }
