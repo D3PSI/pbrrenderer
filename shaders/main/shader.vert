@@ -9,8 +9,10 @@ layout(location = 1) in vec3 _col;
 
 out vec3 vertCol;
 
+uniform mat4 transform;
+
 
 void main() {
-    gl_Position = vec4(_pos, 1.0);
+    gl_Position = transform * vec4(_pos, 1.0);
     vertCol = _col;
 }

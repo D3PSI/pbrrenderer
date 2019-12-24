@@ -107,6 +107,10 @@ namespace pbr {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             shaderMain->bind();
+            glm::mat4 trans = glm::mat4(1.0f);
+            trans = glm::rotate(trans, static_cast< float >(glfwGetTime() * glm::radians(90.0f)), glm::vec3(0.0, 0.0, 1.0));
+            trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5)); 
+            shaderMain->upload(trans, "transform");
             vaoMain->draw();
             return pbr::util::flags::PBR_OK;
         }
