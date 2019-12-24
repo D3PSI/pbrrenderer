@@ -51,8 +51,19 @@ namespace pbr {
          */
         pbr::util::flags::PBR_STATUS freeSTBI(unsigned char* _pixels);
 
+        /**
+         * Clamps a value to variable borders
+         * @param _val The value to clamp
+         * @param _low The low border
+         * @param _high The high border
+         * @return Returns the clamped value
+         */
+        template< typename T >
+        T clamp(T _val, T _low, T _high);
     }
 
 }
+
+#include "PBR_UTIL.tpp"
 
 #endif      // PBR_UTIL_HPP

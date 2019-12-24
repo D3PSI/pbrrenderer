@@ -18,11 +18,6 @@ namespace pbr {
         public:
 
             /**
-             * Default constructor
-             */
-            PBRCameraBase(void) = default;
-
-            /**
              * Constructor with arguments
              * @param _pos The starting position of the camera object
              * @param _up The initial up-vector of the camera object, usually (0, 1, 0)
@@ -41,6 +36,41 @@ namespace pbr {
              * Default destructor
              */
             ~PBRCameraBase(void) = default;
+
+            /**
+             * Handles keyboard input. Must be implemented by derived class
+             * @param _window A pointer to the GLFWwindow
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            virtual pbr::util::flags::PBR_STATUS processInput(GLFWwindow* _window);
+
+            /**
+             * Handles mouse rotation of the camera. Must be implemented by derived class
+             * @param _xPos The x-position of the mouse pointer
+             * @param _yPos The y-position of the mouse pointer
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            virtual pbr::util::flags::PBR_STATUS processMouseMovement(double _xPos, double _yPos);
+
+            /**
+             * Handles scrolling on the mouse wheel. Must be implemented by derived class
+             * @param _xOff The x-offset of the mouse wheel (0 in most cases)
+             * @param _yOff The y-offset of the mouse wheel
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            virtual pbr::util::flags::PBR_STATUS processMouseScroll(double _xOff, double _yOff);
+
+            /**
+             * Updates the camera orientation vectors
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS updateVectors(void);
+
+            /**
+             * Returns a lookAt matrix with the current state values of the camera
+             * @return Returns a 4 x 4 matrix as a lookAt matrix
+             */
+            glm::mat4 lookAt(void);
 
             /**
              * Queries the current yaw-value
@@ -81,7 +111,13 @@ namespace pbr {
              */
             float roll(float _roll);
 
-            private:
+            /**
+             * Queries the current field of view
+             * @return Returns the current field of view
+             */
+            float fov(void);
+
+            protected:
 
                 float yaw_val;
                 float pitch_val;
@@ -93,7 +129,12 @@ namespace pbr {
                 glm::vec3 right;
                 glm::vec3 up;
 
-                float fov;
+                float speed;
+                float sens;
+                float fov_val;
+
+                bool inputEnabled = true;
+                bool firstMouse   = true; 
 
         };
 

@@ -29,6 +29,9 @@ namespace pbr {
     float YAW = 0.0f;
     float PITCH = 0.0f;
     float ROLL = 0.0f;
+    float CAMERA_SPEED = 1.0f;
+    float FOV = 45.0f;
+    float SENSITIVITY = 0.1f;
 
     pbr::util::PBRKeyboardInputCallbackFun keyInputCB;
 

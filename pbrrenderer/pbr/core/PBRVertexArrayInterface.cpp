@@ -13,7 +13,6 @@ template< typename T >
 pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(std::vector< T > _vData, 
     std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > _vaos) {
     this->size = _vData.size() / _vaos.size();
-    std::cout << this->size << std::endl;
     glGenVertexArrays(1, &this->VAO);
     glGenBuffers(1, &this->VBO);
     glBindVertexArray(this->VAO);

@@ -9,6 +9,7 @@
 #include "PBR_CORE.hpp"
 #include "../util/flags/PBR_UTIL_FLAGS.hpp"
 #include "PBRCameraBase.hpp"
+#include "PBRFPSCamera.hpp"
 
 
 namespace pbr {
@@ -21,9 +22,16 @@ namespace pbr {
         pbr::core::PBRCameraBase* camera = nullptr;
 
         std::vector< float > vertices = {
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-             0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-             0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+            // front
+            -1.0f, -1.0f,  1.0f,
+            1.0f, -1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            // back
+            -1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f
         };
 
         unsigned int VBO;
@@ -89,6 +97,7 @@ namespace pbr {
                 glfwSetInputMode(pbr::ui::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
             if (glfwGetKey(pbr::ui::window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
                 glfwSetInputMode(pbr::ui::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            camera->processInput(pbr::ui::window);
             if(pbr::keyInputCB != nullptr)
                 keyInputCB(pbr::ui::window);
             return pbr::util::flags::PBR_OK;
@@ -97,6 +106,7 @@ namespace pbr {
         pbr::util::flags::PBR_STATUS setup() {
             pbr::core::setupShaders();
             pbr::core::setupBuffers();
+            camera = new pbr::core::PBRFPSCamera();
             glEnable(GL_DEPTH_TEST);
             glEnable(GL_CULL_FACE);
             glCullFace(GL_BACK);
@@ -107,10 +117,13 @@ namespace pbr {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             shaderMain->bind();
-            glm::mat4 trans = glm::mat4(1.0f);
-            trans = glm::rotate(trans, static_cast< float >(glfwGetTime() * glm::radians(90.0f)), glm::vec3(0.0, 0.0, 1.0));
-            trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5)); 
-            shaderMain->upload(trans, "transform");
+            glm::mat4 model = glm::mat4(1.0f);
+            glm::mat4 view = camera->lookAt();
+            glm::mat4 projection = glm::perspective(static_cast< float >(glm::radians(camera->fov())), width / static_cast< float >(height), 0.1f, 100.0f);
+            model = glm::rotate(model, static_cast< float >(glfwGetTime() * glm::radians(90.0f)), glm::vec3(1.0, 0.0, 0.0));
+            shaderMain->upload(model, "m");
+            shaderMain->upload(view, "v");
+            shaderMain->upload(projection, "p");
             vaoMain->draw();
             return pbr::util::flags::PBR_OK;
         }
@@ -127,17 +140,9 @@ namespace pbr {
             posVAO._size                                                        = 3;
             posVAO._type                                                        = GL_FLOAT;
             posVAO._normalized                                                  = GL_FALSE;
-            posVAO._stride                                                      = 6 * sizeof(vertices[0]);
+            posVAO._stride                                                      = 3 * sizeof(vertices[0]);
             posVAO._offset                                                      = (void*)0;
             vaos.push_back(posVAO);
-            pbr::util::initializers::PBRVertexAttributeArrayInitializer colVAO  = {};
-            colVAO._index                                                       = 1;
-            colVAO._size                                                        = 3;
-            colVAO._type                                                        = GL_FLOAT;
-            colVAO._normalized                                                  = GL_FALSE;
-            colVAO._stride                                                      = 6 * sizeof(vertices[0]);
-            colVAO._offset                                                      = (void*)(3 * sizeof(vertices[0]));
-            vaos.push_back(colVAO);
             vaoMain = new pbr::core::PBRVertexArrayInterface< float >(vertices, vaos);
             return pbr::util::flags::PBR_OK;
         }

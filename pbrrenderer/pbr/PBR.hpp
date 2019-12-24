@@ -41,6 +41,9 @@ namespace pbr {
     extern float YAW;
     extern float PITCH;
     extern float ROLL;
+    extern float CAMERA_SPEED;
+    extern float FOV;
+    extern float SENSITIVITY;
 
     extern pbr::util::PBRKeyboardInputCallbackFun keyInputCB;
 
