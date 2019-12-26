@@ -21,10 +21,8 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRFPSCamera::processInput(GLFWwindow* _
         this->pos -= camSpeed * this->front;
     if(glfwGetKey(_window, GLFW_KEY_A) == GLFW_PRESS) 
         this->pos -= camSpeed * this->right;
-
     if(glfwGetKey(_window, GLFW_KEY_D) == GLFW_PRESS) 
         this->pos += camSpeed * this->right;
-
     if (glfwGetKey(_window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         inputEnabled = false;
         glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);

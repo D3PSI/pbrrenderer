@@ -6,9 +6,12 @@
 #ifndef PBR_UTIL_IO_HPP
 #define PBR_UTIL_IO_HPP
 
+#include "../flags/PBR_UTIL_FLAGS.hpp"
+
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 
 namespace pbr {

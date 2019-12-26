@@ -14,13 +14,16 @@ pbr::core::PBRCameraBase::PBRCameraBase(
     glm::vec3   _up,
     float       _yaw,
     float       _pitch,
-    float       _roll) : up(glm::vec3(0.0f, 1.0f, 0.0f)),
+    float       _roll) : pos(_pos),
+                         up(_up),
+                         worldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
                          speed(pbr::CAMERA_SPEED),
                          sens(pbr::SENSITIVITY),
                          fov_val(pbr::FOV),
                          yaw_val(_yaw),
                          pitch_val(_pitch),
                          roll_val(_roll) {
+    this->updateVectors();
 }
 
 pbr::util::flags::PBR_STATUS pbr::core::PBRCameraBase::processInput(GLFWwindow* _window) {

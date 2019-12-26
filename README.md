@@ -50,6 +50,8 @@ macOS is currently not supported. Support may be added in future versions.
 
 ## Uninstallation
 
+### Linux
+
 Run the integrated uninstaller like this:
 
     ./UNINSTALL.sh
