@@ -20,32 +20,17 @@ namespace pbr {
         public:
 
             /**
-             * Handles keyboard input
-             * @param _window A pointer to the GLFWwindow
-             * @return Returns 0 or bigger on success, returns a negative number on failure
-             */
-            pbr::util::flags::PBR_STATUS processInput(GLFWwindow* _window);
-
-            /**
              * Handles mouse rotation of the camera
              * @param _xPos The x-position of the mouse pointer
              * @param _yPos The y-position of the mouse pointer
              * @return Returns 0 or bigger on success, returns a negative number on failure
              */
-            pbr::util::flags::PBR_STATUS processMouseMovement(double _xPos, double _yPos);
-
-            /**
-             * Handles scrolling on the mouse wheel
-             * @param _xOff The x-offset of the mouse wheel (0 in most cases)
-             * @param _yOff The y-offset of the mouse wheel
-             * @return Returns 0 or bigger on success, returns a negative number on failure
-             */
-            pbr::util::flags::PBR_STATUS processMouseScroll(double _xOff, double _yOff);
+            pbr::util::flags::PBR_STATUS look(double _xPos, double _yPos);
 
             /**
              * Default destructor
              */
-            ~PBRFPSCamera(void);
+            ~PBRFPSCamera(void) = default;
         
         private:
 

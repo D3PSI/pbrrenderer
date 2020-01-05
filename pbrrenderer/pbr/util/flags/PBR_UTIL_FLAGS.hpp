@@ -40,6 +40,9 @@ namespace pbr {
                 PBR_BORDERLESS
             };
 
+            /**
+             * Defines an enumeration for different shader types
+             */
             enum PBR_SHADER_TYPE {
                 PBR_VERTEX_SHADER,
                 PBR_FRAGMENT_SHADER,
@@ -47,6 +50,18 @@ namespace pbr {
                 PBR_COMPUTE_SHADER,
                 PBR_TESSELATION_EVALUATION_SHADER,
                 PBR_TESSELETION_CONTROL_SHADER
+            };
+
+            /**
+             * Defines an enumeration for different directions
+             */
+            enum PBR_DIRECTION {
+                PBR_FRONT,
+                PBR_BACK,
+                PBR_LEFT,
+                PBR_RIGHT,
+                PBR_UP,
+                PBR_DOWN
             };
 
         }

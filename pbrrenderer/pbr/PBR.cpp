@@ -18,26 +18,8 @@
 
 namespace pbr {
 
-    uint32_t WIDTH = 1280;
-    uint32_t HEIGHT = 720;
-    const char* TITLE = "Physically-Based Rendering Example by D3PSI";
-
-    const char* LOADING_SCREEN_IMAGE = "res/images/lion.png";
-    const char* APPLICATION_ICON = "res/images/lion_cropped.png";
-    pbr::util::flags::PBR_DISPLAY_MODE DISPLAY_MODE = pbr::util::flags::PBR_WINDOWED;
-
-    float YAW = 0.0f;
-    float PITCH = 0.0f;
-    float ROLL = 0.0f;
-    float CAMERA_SPEED = 1.0f;
-    float FOV = 45.0f;
-    float SENSITIVITY = 0.1f;
-
-    pbr::util::PBRKeyboardInputCallbackFun keyInputCB;
-
     pbr::util::flags::PBR_STATUS pbrInit() {
-        pbr::core::init();
-        return pbr::util::flags::PBR_OK;
+        return pbr::core::init();
     }
 
     pbr::util::flags::PBR_STATUS pbrExecute() {
@@ -50,33 +32,38 @@ namespace pbr {
     }
 
     pbr::util::flags::PBR_STATUS pbrSize(uint32_t _width, uint32_t _height) {
-        WIDTH = _width;
-        HEIGHT = _height;
+        pbr::util::defaults::WIDTH = _width;
+        pbr::util::defaults::HEIGHT = _height;
         return pbr::util::flags::PBR_OK;
     }
 
     pbr::util::flags::PBR_STATUS pbrTitle(const char* _title) {
-        TITLE = _title;
+        pbr::util::defaults::TITLE = _title;
         return pbr::util::flags::PBR_OK;
     }
 
     pbr::util::flags::PBR_STATUS pbrLoadingScreenImage(const char* _image) {
-        LOADING_SCREEN_IMAGE = _image;
+        pbr::util::defaults::LOADING_SCREEN_IMAGE = _image;
         return pbr::util::flags::PBR_OK;
     }
 
     pbr::util::flags::PBR_STATUS pbrApplicationIcon(const char* _icon) {
-        APPLICATION_ICON = _icon;
+        pbr::util::defaults::APPLICATION_ICON = _icon;
         return pbr::util::flags::PBR_OK;
     }
 
     pbr::util::flags::PBR_STATUS pbrDisplayMode(pbr::util::flags::PBR_DISPLAY_MODE _mode) {
-        pbr::DISPLAY_MODE = _mode;
+        pbr::util::defaults::DISPLAY_MODE = _mode;
         return pbr::util::flags::PBR_OK;
     }
 
     pbr::util::flags::PBR_STATUS pbrKeyboardInputCallback(pbr::util::PBRKeyboardInputCallbackFun _cbfun) {
-        keyInputCB = _cbfun;
+        pbr::util::defaults::KEY_INPUT_CB = _cbfun;
+        return pbr::util::flags::PBR_OK;
+    }
+
+    pbr::util::flags::PBR_STATUS pbrDefaultKeyBindings(bool _enable) {
+        pbr::util::defaults::DEFAULT_KEY_BINDINGS = _enable;
         return pbr::util::flags::PBR_OK;
     }
 

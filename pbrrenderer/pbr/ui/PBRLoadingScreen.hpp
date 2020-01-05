@@ -6,7 +6,7 @@
 #ifndef PBR_LOADING_SCREEN_HPP
 #define PBR_LOADING_SCREEN_HPP
 
-#include "../util/flags/PBR_UTIL_FLAGS.hpp"
+#include "../PBR.hpp"
 
 #include <SDL.h>
 #include <SDL_image.h>

@@ -6,7 +6,6 @@
 #ifndef PBR_LOADING_SCREEN_CPP
 #define PBR_LOADING_SCREEN_CPP
 
-#include "PBRLoadingScreen.hpp"
 #include "../PBR.hpp"
 
 
@@ -23,7 +22,7 @@ pbr::ui::PBRLoadingScreen::PBRLoadingScreen(const char* _image) {
     width = imageSurface->w;
     height = imageSurface->h;
     window = SDL_CreateWindow(
-        pbr::TITLE,
+        pbr::util::defaults::TITLE,
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
         width,

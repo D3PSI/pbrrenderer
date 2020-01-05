@@ -21,31 +21,23 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "core/PBR_CORE.hpp"
+#include "core/PBRShaderInterface.hpp"
+#include "core/PBRVertexArrayInterface.hpp"
 #include "ui/PBR_UI.hpp"
+#include "ui/PBRLoadingScreen.hpp"
 #include "util/PBR_UTIL.hpp"
+#include "util/PBRCallbackFunctions.hpp"
+#include "util/PBRMakros.hpp"
+#include "util/defaults/PBR_UTIL_DEFAULTS.hpp"
+#include "util/flags/PBR_UTIL_FLAGS.hpp"
+#include "util/initializers/PBR_UTIL_INITIALIZERS.hpp"
+#include "util/io/PBR_UTIL_IO.hpp"
 
 
 /**
  * Defines a namespace to minimize variable naming conflicts
  */
 namespace pbr {
-
-    extern uint32_t WIDTH;
-    extern uint32_t HEIGHT;
-    extern const char* TITLE;
-
-    extern const char* LOADING_SCREEN_IMAGE;
-    extern const char* APPLICATION_ICON;
-    extern pbr::util::flags::PBR_DISPLAY_MODE DISPLAY_MODE;
-
-    extern float YAW;
-    extern float PITCH;
-    extern float ROLL;
-    extern float CAMERA_SPEED;
-    extern float FOV;
-    extern float SENSITIVITY;
-
-    extern pbr::util::PBRKeyboardInputCallbackFun keyInputCB;
 
     /**
      * Initializes the PBR core engine
@@ -107,6 +99,13 @@ namespace pbr {
      * @return Returns 0 or bigger on success, returns a negative number on failure
      */
     pbr::util::flags::PBR_STATUS pbrKeyboardInputCallback(pbr::util::PBRKeyboardInputCallbackFun _cbfun);
+
+    /**
+     * Enables default key bindings for a PBR application
+     * @param _enable Enable with true or disable with false
+     * @return Returns 0 or bigger on success, returns a negative number on failure
+     */
+    pbr::util::flags::PBR_STATUS pbrDefaultKeyBindings(bool _enable = true);
 
     /**
      * Queries the current width of the window

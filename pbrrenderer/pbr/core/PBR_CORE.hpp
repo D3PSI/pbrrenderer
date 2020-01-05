@@ -7,10 +7,7 @@
 #define PBR_CORE_HPP
 
 #include "../PBR.hpp"
-#include "../ui/PBR_UI.hpp"
 #include "../util/PBR_UTIL.hpp"
-#include "PBRShaderInterface.hpp"
-#include "PBRVertexArrayInterface.hpp"
 
 #include <iostream>
 

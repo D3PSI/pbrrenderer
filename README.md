@@ -92,6 +92,7 @@ At the moment, there is no documentation as this project is still early in devel
         pbr::pbrLoadingScreenImage("res/images/lion.png");
         pbr::pbrApplicationIcon("res/images/lion-cropped.png");
         pbr::pbrDisplayMode(pbr::util::flags::PBR_WINDOWED);
+        pbr::pbrDefaultKeyBindings();
         pbr::pbrKeyboardInputCallback(keyboardInputCallback);
         return pbr::pbrExecute();
     }

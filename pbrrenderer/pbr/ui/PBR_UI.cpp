@@ -18,7 +18,7 @@ namespace pbr {
         GLFWmonitor* monitor = nullptr;
 
         pbr::util::flags::PBR_STATUS initLoadingScreen() {
-            pbr::ui::loadingScreen = new pbr::ui::PBRLoadingScreen(LOADING_SCREEN_IMAGE);
+            pbr::ui::loadingScreen = new pbr::ui::PBRLoadingScreen(pbr::util::defaults::LOADING_SCREEN_IMAGE);
             return pbr::util::flags::PBR_OK;
         }
 
@@ -36,19 +36,19 @@ namespace pbr {
         pbr::util::flags::PBR_STATUS initGLFWWindow() {
             pbr::ui::monitor = glfwGetPrimaryMonitor();
             const GLFWvidmode* mode = glfwGetVideoMode(pbr::ui::monitor);
-            if(pbr::DISPLAY_MODE == pbr::util::flags::PBR_WINDOWED) {
+            if(pbr::util::defaults::DISPLAY_MODE == pbr::util::flags::PBR_WINDOWED) {
                 pbr::ui::window = glfwCreateWindow(
-                    pbr::WIDTH,
-                    pbr::HEIGHT,
-                    pbr::TITLE,
+                    pbr::util::defaults::WIDTH,
+                    pbr::util::defaults::HEIGHT,
+                    pbr::util::defaults::TITLE,
                     nullptr,
                     nullptr);
                 glfwSetWindowPos(
                     pbr::ui::window,
-                    mode->width / 2 - pbr::WIDTH / 2,
-                    mode->height / 2 - pbr::HEIGHT / 2);
+                    mode->width / 2 - pbr::util::defaults::WIDTH / 2,
+                    mode->height / 2 - pbr::util::defaults::HEIGHT / 2);
             }
-            else if(pbr::DISPLAY_MODE == pbr::util::flags::PBR_FULLSCREEN) {
+            else if(pbr::util::defaults::DISPLAY_MODE == pbr::util::flags::PBR_FULLSCREEN) {
                 glfwWindowHint(GLFW_RED_BITS, mode->redBits);
                 glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
                 glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
@@ -56,15 +56,15 @@ namespace pbr {
                 pbr::ui::window = glfwCreateWindow(
                     mode->width,
                     mode->height,
-                    pbr::TITLE,
+                    pbr::util::defaults::TITLE,
                     pbr::ui::monitor,
                     nullptr);
             }
-            else if(pbr::DISPLAY_MODE == pbr::util::flags::PBR_BORDERLESS) {
+            else if(pbr::util::defaults::DISPLAY_MODE == pbr::util::flags::PBR_BORDERLESS) {
                 pbr::ui::window = glfwCreateWindow(
                     mode->width,
                     mode->height,
-                    pbr::TITLE,
+                    pbr::util::defaults::TITLE,
                     pbr::ui::monitor,
                     nullptr);
             }
@@ -72,7 +72,7 @@ namespace pbr {
             glfwSwapInterval(0);
             GLFWimage windowIcon[1];
             windowIcon[0].pixels = pbr::util::loadSTBI(
-                pbr::APPLICATION_ICON,
+                pbr::util::defaults::APPLICATION_ICON,
                 &windowIcon[0].width,
                 &windowIcon[0].height,
                 0,

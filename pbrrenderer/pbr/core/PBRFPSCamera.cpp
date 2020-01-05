@@ -8,43 +8,17 @@
 
 #include "PBRFPSCamera.hpp"
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRFPSCamera::processInput(GLFWwindow* _window) {
-    static float deltaTime = 0.0f;
-    static float lastFrame = 0.0f;
-    float currentFrame = static_cast< float >(glfwGetTime());
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-    float camSpeed = 2.5f * deltaTime;
-    if(glfwGetKey(_window, GLFW_KEY_W) == GLFW_PRESS)
-        this->pos += camSpeed * this->front;
-    if(glfwGetKey(_window, GLFW_KEY_S) == GLFW_PRESS) 
-        this->pos -= camSpeed * this->front;
-    if(glfwGetKey(_window, GLFW_KEY_A) == GLFW_PRESS) 
-        this->pos -= camSpeed * this->right;
-    if(glfwGetKey(_window, GLFW_KEY_D) == GLFW_PRESS) 
-        this->pos += camSpeed * this->right;
-    if (glfwGetKey(_window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-        inputEnabled = false;
-        glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        firstMouse = true;
-    }
-    else if (glfwGetKey(_window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE) {
-        inputEnabled = true;
-        glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    }
-    return pbr::util::flags::PBR_OK;
-}
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRFPSCamera::processMouseMovement(double _xPos, double _yPos) {
+pbr::util::flags::PBR_STATUS pbr::core::PBRFPSCamera::look(double _xPos, double _yPos) {
     static double lastX = 0.0;
     static double lastY = 0.0;
-    if (this->inputEnabled) {
+    if (pbr::util::io::inputEnabled) {
         double xOff;
         double yOff;
-        if (this->firstMouse) {
+        if (pbr::util::io::firstMouse) {
             xOff = 0;
             yOff = 0;
-            this->firstMouse = false;
+            pbr::util::io::firstMouse = false;
         }
         else {
             xOff = _xPos - lastX;
@@ -60,18 +34,6 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRFPSCamera::processMouseMovement(doubl
         this->updateVectors();
     }
     return pbr::util::flags::PBR_OK;
-}
-
-pbr::util::flags::PBR_STATUS pbr::core::PBRFPSCamera::processMouseScroll(double _xOff, double _yOff) {
-    if(this->inputEnabled) {
-        this->fov_val -= _yOff;
-        this->fov_val = pbr::util::clamp(this->fov_val, 1.0f, 130.0f);
-    }
-    return pbr::util::flags::PBR_OK;
-}
-
-pbr::core::PBRFPSCamera::~PBRFPSCamera() {
-
 }
 
 #endif      // PBR_FPS_CAMERA_CPP

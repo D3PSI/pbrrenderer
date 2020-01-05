@@ -7,6 +7,8 @@
 #define PBR_CAMERA_BASE_HPP
 
 #include "../PBR.hpp"
+#include "../util/defaults/PBR_UTIL_DEFAULTS.hpp"
+#include "../util/PBRMakros.hpp"
 
 
 namespace pbr {
@@ -28,9 +30,9 @@ namespace pbr {
             PBRCameraBase(
                 glm::vec3   _pos    = ORIGIN,
                 glm::vec3   _up     = Y_AXIS,
-                float       _yaw    = pbr::YAW,
-                float       _pitch  = pbr::PITCH,
-                float       _roll   = pbr::ROLL);
+                float       _yaw    = pbr::util::defaults::YAW,
+                float       _pitch  = pbr::util::defaults::PITCH,
+                float       _roll   = pbr::util::defaults::ROLL);
 
             /**
              * Default destructor
@@ -38,27 +40,20 @@ namespace pbr {
             ~PBRCameraBase(void) = default;
 
             /**
-             * Handles keyboard input. Must be implemented by derived class
-             * @param _window A pointer to the GLFWwindow
+             * Moves the camera object
+             * @param _direction The relative movement direction
+             * @param _speed The relative speed to move the camera with
              * @return Returns 0 or bigger on success, returns a negative number on failure
              */
-            virtual pbr::util::flags::PBR_STATUS processInput(GLFWwindow* _window);
+            virtual pbr::util::flags::PBR_STATUS move(pbr::util::flags::PBR_DIRECTION _direction, float _speed);
 
             /**
-             * Handles mouse rotation of the camera. Must be implemented by derived class
-             * @param _xPos The x-position of the mouse pointer
-             * @param _yPos The y-position of the mouse pointer
+             * Rotates the camera
+             * @param _xPos The x-coordinate of the mouse's position
+             * @param _yPos The y-coordinate of the mouse's position
              * @return Returns 0 or bigger on success, returns a negative number on failure
              */
-            virtual pbr::util::flags::PBR_STATUS processMouseMovement(double _xPos, double _yPos);
-
-            /**
-             * Handles scrolling on the mouse wheel. Must be implemented by derived class
-             * @param _xOff The x-offset of the mouse wheel (0 in most cases)
-             * @param _yOff The y-offset of the mouse wheel
-             * @return Returns 0 or bigger on success, returns a negative number on failure
-             */
-            virtual pbr::util::flags::PBR_STATUS processMouseScroll(double _xOff, double _yOff);
+            virtual pbr::util::flags::PBR_STATUS look(double _xPos, double _yPos);
 
             /**
              * Updates the camera orientation vectors
@@ -132,9 +127,6 @@ namespace pbr {
                 float speed;
                 float sens;
                 float fov_val;
-
-                bool inputEnabled = true;
-                bool firstMouse   = true; 
 
         };
 

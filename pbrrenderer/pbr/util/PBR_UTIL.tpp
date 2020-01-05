@@ -6,6 +6,9 @@
 #ifndef PBR_UTIL_TPP
 #define PBR_UTIL_TPP
 
+#include <iostream>
+
+
 template< typename T >
 T pbr::util::clamp(T _val, T _low, T _high) {
     if(_low >= _high) throw std::runtime_error("Invalid clamp borders");

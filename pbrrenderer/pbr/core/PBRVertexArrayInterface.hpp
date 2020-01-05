@@ -6,7 +6,8 @@
 #ifndef PBR_VERTEX_ARRAY_INTERFACE_HPP
 #define PBR_VERTEX_ARRAY_INTERFACE_HPP
 
-#include "../util/PBR_UTIL.hpp"
+#include "../PBR.hpp"
+#include "../util/initializers/PBR_UTIL_INITIALIZERS.hpp"
 
 #include <vector>
 
