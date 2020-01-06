@@ -47,7 +47,7 @@ namespace pbr {
 
         pbr::util::flags::PBR_STATUS initOpenGL() {
             if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-                throw std::runtime_error("Failed to gather function pointers for OpenGL through GLAD");
+                pbr::util::io::raise("Failed to gather function pointers for OpenGL through GLAD");
             glViewport(0, 0, pbr::util::defaults::WIDTH, pbr::util::defaults::HEIGHT);
             pbr::ui::loadingScreen->quit();
             glfwShowWindow(pbr::ui::window);

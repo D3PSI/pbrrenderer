@@ -34,7 +34,7 @@ namespace pbr {
                     return buf;
                 }
                 catch (std::ifstream::failure& _e) {
-                    throw std::runtime_error("Failed to read file from " + _path);
+                    pbr::util::io::raise("Failed to read file from " + _path);
                     return nullptr;
                 }
             }
@@ -79,6 +79,11 @@ namespace pbr {
             }
 
             pbr::util::flags::PBR_STATUS mouseScroll(double _xOff, double _yOff) {
+                return pbr::util::flags::PBR_OK;
+            }
+
+            pbr::util::flags::PBR_STATUS raise(std::string _msg) {
+                throw std::runtime_error(_msg);
                 return pbr::util::flags::PBR_OK;
             }
 

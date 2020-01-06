@@ -47,6 +47,9 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRCameraBase::move(pbr::util::flags::PB
             case pbr::util::flags::PBR_RIGHT:
                 this->pos -= camSpeed * this->right;
                 break;
+            default:
+                pbr::util::io::raise("Invalid movement direction");
+                break;
         }
     return pbr::util::flags::PBR_OK;
 }

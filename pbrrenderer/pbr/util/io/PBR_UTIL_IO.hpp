@@ -56,6 +56,13 @@ namespace pbr {
              */
             pbr::util::flags::PBR_STATUS mouseScroll(double _xOff, double _yOff);
 
+            /**
+             * Throws an exception and handles errors
+             * @throw Throws an std::runtime_error when called
+             * @return Returns 0 or bigger on success, returns a negative number on failure (for completeness ;))
+             */
+            pbr::util::flags::PBR_STATUS raise(std::string _msg);
+
         }
 
     }
