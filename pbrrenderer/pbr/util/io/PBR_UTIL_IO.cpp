@@ -46,9 +46,9 @@ namespace pbr {
                     if(glfwGetKey(pbr::ui::window, GLFW_KEY_S) == GLFW_PRESS) 
                         pbr::core::camera->move(pbr::util::flags::PBR_BACK, pbr::util::defaults::CAMERA_SPEED);
                     if(glfwGetKey(pbr::ui::window, GLFW_KEY_A) == GLFW_PRESS) 
-                        pbr::core::camera->move(pbr::util::flags::PBR_LEFT, pbr::util::defaults::CAMERA_SPEED);
-                    if(glfwGetKey(pbr::ui::window, GLFW_KEY_D) == GLFW_PRESS) 
                         pbr::core::camera->move(pbr::util::flags::PBR_RIGHT, pbr::util::defaults::CAMERA_SPEED);
+                    if(glfwGetKey(pbr::ui::window, GLFW_KEY_D) == GLFW_PRESS) 
+                        pbr::core::camera->move(pbr::util::flags::PBR_LEFT, pbr::util::defaults::CAMERA_SPEED);
                     if(glfwGetKey(pbr::ui::window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
                         glfwSetWindowShouldClose(pbr::ui::window, GLFW_TRUE);
                     if(glfwGetKey(pbr::ui::window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -61,8 +61,8 @@ namespace pbr {
                         glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
                     if(glfwGetKey(pbr::ui::window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
                         pbr::util::io::inputEnabled = false;
-                        pbr::util::io::firstMouse = true;
                         glfwSetInputMode(pbr::ui::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                        pbr::util::io::firstMouse = true;
                     }
                     if(glfwGetKey(pbr::ui::window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE) {
                         pbr::util::io::inputEnabled = true;
@@ -75,11 +75,11 @@ namespace pbr {
             }
 
             pbr::util::flags::PBR_STATUS mouseMovement(double _xPos, double _yPos) {
-                return pbr::util::flags::PBR_OK;
+                return pbr::core::camera->look(_xPos, _yPos);
             }
 
             pbr::util::flags::PBR_STATUS mouseScroll(double _xOff, double _yOff) {
-                return pbr::util::flags::PBR_OK;
+                return pbr::core::camera->zoom(_xOff, _yOff);
             }
 
             pbr::util::flags::PBR_STATUS raise(std::string _msg) {

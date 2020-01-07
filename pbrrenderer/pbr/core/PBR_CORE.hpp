@@ -22,6 +22,10 @@ namespace pbr {
         extern uint32_t width;
         extern uint32_t height;
 
+        extern float deltaTime;
+        extern float lastFrame;
+        extern float currentFrame;
+
         /**
          * Initializes the PBR core engine
          * @return Returns 0 or bigger on success, returns a negative number on failure

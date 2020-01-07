@@ -28,33 +28,14 @@ pbr::core::PBRCameraBase::PBRCameraBase(
 
 pbr::util::flags::PBR_STATUS pbr::core::PBRCameraBase::move(pbr::util::flags::PBR_DIRECTION _direction, 
     float _speed) {
-        static float deltaTime = 0.0f;
-        static float lastFrame = 0.0f;
-        float currentFrame = static_cast< float >(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-        float camSpeed = _speed * deltaTime;
-        switch(_direction) {
-            case pbr::util::flags::PBR_FRONT:
-                this->pos += camSpeed * this->front;
-                break;
-            case pbr::util::flags::PBR_BACK:
-                this->pos -= camSpeed * this->front;
-                break;
-            case pbr::util::flags::PBR_LEFT:
-                this->pos += camSpeed * this->right;
-                break;
-            case pbr::util::flags::PBR_RIGHT:
-                this->pos -= camSpeed * this->right;
-                break;
-            default:
-                pbr::util::io::raise("Invalid movement direction");
-                break;
-        }
     return pbr::util::flags::PBR_OK;
 }
 
 pbr::util::flags::PBR_STATUS pbr::core::PBRCameraBase::look(double _xPos, double _yPos) {
+    return pbr::util::flags::PBR_OK;
+}
+
+pbr::util::flags::PBR_STATUS pbr::core::PBRCameraBase::zoom(double _xOff, double _yOff) {
     return pbr::util::flags::PBR_OK;
 }
 

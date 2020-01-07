@@ -56,6 +56,14 @@ namespace pbr {
             virtual pbr::util::flags::PBR_STATUS look(double _xPos, double _yPos);
 
             /**
+             * Zooms the camera
+             * @param _xOff The x-offset of the mouse's scroll wheel (0 in most cases)
+             * @param _yOff The y-offset of the mouse's scroll wheel
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            virtual pbr::util::flags::PBR_STATUS zoom(double _xOff, double _yOff);
+
+            /**
              * Updates the camera orientation vectors
              * @return Returns 0 or bigger on success, returns a negative number on failure
              */

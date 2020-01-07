@@ -19,6 +19,10 @@ namespace pbr {
         uint32_t width = pbr::util::defaults::WIDTH;
         uint32_t height = pbr::util::defaults::HEIGHT;
 
+        float deltaTime = 0.0f;
+        float lastFrame = 0.0f;
+        float currentFrame = static_cast< float >(glfwGetTime());
+
         pbr::core::PBRCameraBase* camera = nullptr;
 
         std::vector< float > vertices = {
@@ -60,6 +64,9 @@ namespace pbr {
         pbr::util::flags::PBR_STATUS loop() {
             pbr::core::setup();
             while(!glfwWindowShouldClose(pbr::ui::window)) {
+                currentFrame = static_cast< float >(glfwGetTime());
+                pbr::core::deltaTime = currentFrame - pbr::core::lastFrame;
+                pbr::core::lastFrame = currentFrame;
                 pbr::util::io::keyboardInput();
                 pbr::core::render();
                 glfwSwapBuffers(pbr::ui::window);
@@ -112,7 +119,7 @@ namespace pbr {
             posVAO._size = 3;
             posVAO._type = GL_FLOAT;
             posVAO._normalized = GL_FALSE;
-            posVAO._stride = 3 * sizeof(vertices[0]);
+            posVAO._stride = 6 * sizeof(vertices[0]);
             posVAO._offset = (void*)0;
             vaos.push_back(posVAO);
             pbr::util::initializers::PBRVertexAttributeArrayInitializer colVAO = {};
@@ -134,11 +141,11 @@ namespace pbr {
         }
 
         void mouseMoveCB(GLFWwindow* _window, double _xPos, double _yPos) {
-            //pbr::util::io::mouseMovement(_xPos, _yPos);
+            pbr::util::io::mouseMovement(_xPos, _yPos);
         }
         
         void mouseScrollCB(GLFWwindow* _window, double _xOff, double _yOff) {
-            //pbr::util::io::mouseScroll(_xOff, _yOff);
+            pbr::util::io::mouseScroll(_xOff, _yOff);
         }
 
     }

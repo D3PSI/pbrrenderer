@@ -18,6 +18,14 @@ namespace pbr {
         {
             using pbr::core::PBRCameraBase::PBRCameraBase;
         public:
+            
+            /**
+             * Moves the camera object
+             * @param _direction The relative movement direction
+             * @param _speed The relative speed to move the camera with
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS move(pbr::util::flags::PBR_DIRECTION _direction, float _speed);
 
             /**
              * Handles mouse rotation of the camera
@@ -26,6 +34,15 @@ namespace pbr {
              * @return Returns 0 or bigger on success, returns a negative number on failure
              */
             pbr::util::flags::PBR_STATUS look(double _xPos, double _yPos);
+
+            /**
+             * Zooms the camera
+             * @param _xOff The x-offset of the mouse's scroll wheel (0 in most cases)
+             * @param _yOff The y-offset of the mouse's scroll wheel
+             * @return Returns 0 or bigger on success, returns a negative number on failure
+             */
+            pbr::util::flags::PBR_STATUS zoom(double _xOff, double _yOff);
+
 
             /**
              * Default destructor
