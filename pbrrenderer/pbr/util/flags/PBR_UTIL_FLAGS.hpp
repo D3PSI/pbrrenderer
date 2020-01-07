@@ -64,6 +64,14 @@ namespace pbr {
                 PBR_DOWN
             };
 
+            /**
+             * Defines an enumeration for flag bits
+             */
+            enum PBR_FLAG_BITS {
+                PBR_CLEAR_FLAG_BITS = 0x00000000,
+                PBR_BUFFER_INDEX_BUFFER_FLAG_BIT = 0x00000001
+            };
+
         }
 
     }

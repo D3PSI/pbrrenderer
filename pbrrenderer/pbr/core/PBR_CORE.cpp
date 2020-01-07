@@ -26,9 +26,15 @@ namespace pbr {
         pbr::core::PBRCameraBase* camera = nullptr;
 
         std::vector< float > vertices = {
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-             0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-             0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+            0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+           -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+           -0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.5f
+        };
+
+        std::vector< uint32_t > indices = {
+            0, 1, 3,
+            1, 2, 3
         };
 
         unsigned int VBO;
@@ -88,7 +94,7 @@ namespace pbr {
             pbr::core::camera = new pbr::core::PBRFPSCamera();
             glEnable(GL_DEPTH_TEST);
             //glEnable(GL_CULL_FACE);
-            //glCullFace(GL_BACK);
+            glCullFace(GL_BACK);
             return pbr::util::flags::PBR_OK;
         }
 
@@ -130,7 +136,8 @@ namespace pbr {
             colVAO._stride = 6 * sizeof(vertices[0]);
             colVAO._offset = (void*)(3 * sizeof(vertices[0]));
             vaos.push_back(colVAO);
-            pbr::core::vaoMain = new pbr::core::PBRVertexArrayInterface< float >(vertices, vaos);
+            pbr::core::vaoMain = new pbr::core::PBRVertexArrayInterface< float >(pbr::core::vertices, vaos, 
+                pbr::util::flags::PBR_BUFFER_INDEX_BUFFER_FLAG_BIT, pbr::core::indices);
             return pbr::util::flags::PBR_OK;
         }
 

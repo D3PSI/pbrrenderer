@@ -25,9 +25,13 @@ namespace pbr {
              * Constructor with vertex data
              * @param _vData The vertex data as an std::vector
              * @param _vaos The vertex array initializer structs
+             * @param _flags The flags to set options
+             * @param _iData The index data as an std::vector
              */
-            PBRVertexArrayInterface(std::vector< T > _vData, 
-                std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > _vaos);
+            PBRVertexArrayInterface(const std::vector< T >& _vData, 
+                const std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > _vaos,
+                const pbr::util::flags::PBR_FLAG_BITS _flags = pbr::util::flags::PBR_CLEAR_FLAG_BITS,
+                const std::vector< uint32_t >& _iData = std::vector< uint32_t >());
 
             /**
              * Draws the vertex buffer object
@@ -42,8 +46,11 @@ namespace pbr {
 
         private:
 
+            pbr::util::flags::PBR_FLAG_BITS flags;
+
             uint32_t VAO;
             uint32_t VBO;
+            uint32_t EBO;
             uint32_t size;
 
         };
