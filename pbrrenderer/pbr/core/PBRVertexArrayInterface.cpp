@@ -59,7 +59,10 @@ pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vect
 template< typename T >
 pbr::util::flags::PBR_STATUS pbr::core::PBRVertexArrayInterface< T >::draw() {
     if(this->flags & pbr::util::flags::PBR_BUFFER_TEXTURE_FLAG_BIT)
-        this->textures[0]->bind();
+        for(uint32_t i = 0; i < this->textures.size(); i++) {
+            glActiveTexture(GL_TEXTURE0 + i);
+            this->textures[i]->bind();
+        }
     glBindVertexArray(this->VAO);
     if(this->flags & pbr::util::flags::PBR_BUFFER_INDEX_BUFFER_FLAG_BIT) 
         glDrawElements(GL_TRIANGLES, this->size, GL_UNSIGNED_INT, 0);
