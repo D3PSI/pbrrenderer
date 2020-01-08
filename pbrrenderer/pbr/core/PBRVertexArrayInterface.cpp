@@ -12,7 +12,8 @@
 template< typename T >
 pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vector< T >& _vData, 
     const std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > _vaos,
-    const pbr::util::flags::PBR_FLAG_BITS _flags,
+    const std::vector< std::string > _texPaths,
+    const pbr::util::flags::PBR_FLAGS _flags,
     const std::vector< uint32_t >& _iData) : flags(_flags) {
     this->size = _vData.size() / _vaos.size();
     glGenVertexArrays(1, &this->VAO);
@@ -28,6 +29,12 @@ pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vect
             sizeof(_iData[0]) * _iData.size(),
             _iData.data(),
             GL_STATIC_DRAW);
+    }
+    if(_texPaths.size() != 0) {
+        if(!(_flags & pbr::util::flags::PBR_BUFFER_TEXTURE_FLAG_BIT))
+            pbr::util::io::raise("Required texture flag bit not set!");
+        for(std::string path : _texPaths)    
+            this->textures.push_back(new pbr::core::PBRTextureInterface(path));
     }
     glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
     glBufferData(
@@ -51,6 +58,8 @@ pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vect
 
 template< typename T >
 pbr::util::flags::PBR_STATUS pbr::core::PBRVertexArrayInterface< T >::draw() {
+    if(this->flags & pbr::util::flags::PBR_BUFFER_TEXTURE_FLAG_BIT)
+        this->textures[0]->bind();
     glBindVertexArray(this->VAO);
     if(this->flags & pbr::util::flags::PBR_BUFFER_INDEX_BUFFER_FLAG_BIT) 
         glDrawElements(GL_TRIANGLES, this->size, GL_UNSIGNED_INT, 0);
@@ -61,7 +70,8 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRVertexArrayInterface< T >::draw() {
 
 template< typename T >
 pbr::core::PBRVertexArrayInterface< T >::~PBRVertexArrayInterface() {
-
+    for(auto tex : this->textures)
+        delete tex;
 }
 
 template class pbr::core::PBRVertexArrayInterface< float >;

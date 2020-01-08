@@ -26,10 +26,10 @@ namespace pbr {
         pbr::core::PBRCameraBase* camera = nullptr;
 
         std::vector< float > vertices = {
-            0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-           -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-           -0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.5f
+            0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+           -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+           -0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.5f, 0.0f, 1.0f
         };
 
         std::vector< uint32_t > indices = {
@@ -41,6 +41,7 @@ namespace pbr {
         unsigned int VAO;
         pbr::core::PBRShaderInterface* shaderMain;
         pbr::core::PBRVertexArrayInterface< float >* vaoMain;
+        pbr::core::PBRShaderInterface* shaderTextures;
 
         pbr::util::flags::PBR_STATUS init() {
             pbr::ui::initLoadingScreen();
@@ -51,6 +52,7 @@ namespace pbr {
             pbr::ui::initGLFW();
             pbr::ui::initGLFWWindow();
             pbr::core::initOpenGL();
+            pbr::core::setup();
             pbr::core::loop();
             return pbr::util::flags::PBR_OK;
         }
@@ -68,7 +70,6 @@ namespace pbr {
         }
 
         pbr::util::flags::PBR_STATUS loop() {
-            pbr::core::setup();
             while(!glfwWindowShouldClose(pbr::ui::window)) {
                 currentFrame = static_cast< float >(glfwGetTime());
                 pbr::core::deltaTime = currentFrame - pbr::core::lastFrame;
@@ -101,20 +102,21 @@ namespace pbr {
         pbr::util::flags::PBR_STATUS render() {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            pbr::core::shaderMain->bind();
+            pbr::core::shaderTextures->bind();
             glm::mat4 model = glm::mat4(1.0f);
             glm::mat4 view = camera->lookAt();
             glm::mat4 projection = glm::perspective(static_cast< float >(glm::radians(camera->fov())), width / static_cast< float >(height), 0.1f, 100.0f);
             model = glm::rotate(model, static_cast< float >(glfwGetTime() * glm::radians(90.0f)), glm::vec3(0.0, 0.0, 1.0));
-            pbr::core::shaderMain->upload(model, "m");
-            pbr::core::shaderMain->upload(view, "v");
-            pbr::core::shaderMain->upload(projection, "p");
+            pbr::core::shaderTextures->upload(model, "m");
+            pbr::core::shaderTextures->upload(view, "v");
+            pbr::core::shaderTextures->upload(projection, "p");
             pbr::core::vaoMain->draw();
             return pbr::util::flags::PBR_OK;
         }
 
         pbr::util::flags::PBR_STATUS setupShaders() {
-            pbr::core::shaderMain = new pbr::core::PBRShaderInterface("main");
+            //pbr::core::shaderMain = new pbr::core::PBRShaderInterface("main");
+            pbr::core::shaderTextures = new pbr::core::PBRShaderInterface("textures");
             return pbr::util::flags::PBR_OK;
         }
 
@@ -125,7 +127,7 @@ namespace pbr {
             posVAO._size = 3;
             posVAO._type = GL_FLOAT;
             posVAO._normalized = GL_FALSE;
-            posVAO._stride = 6 * sizeof(vertices[0]);
+            posVAO._stride = 8 * sizeof(vertices[0]);
             posVAO._offset = (void*)0;
             vaos.push_back(posVAO);
             pbr::util::initializers::PBRVertexAttributeArrayInitializer colVAO = {};
@@ -133,11 +135,26 @@ namespace pbr {
             colVAO._size = 3;
             colVAO._type = GL_FLOAT;
             colVAO._normalized = GL_FALSE;
-            colVAO._stride = 6 * sizeof(vertices[0]);
+            colVAO._stride = 8 * sizeof(vertices[0]);
             colVAO._offset = (void*)(3 * sizeof(vertices[0]));
             vaos.push_back(colVAO);
-            pbr::core::vaoMain = new pbr::core::PBRVertexArrayInterface< float >(pbr::core::vertices, vaos, 
-                pbr::util::flags::PBR_BUFFER_INDEX_BUFFER_FLAG_BIT, pbr::core::indices);
+            pbr::util::initializers::PBRVertexAttributeArrayInitializer texVAO = {};
+            texVAO._index = 2;
+            texVAO._size = 2;
+            texVAO._type = GL_FLOAT;
+            texVAO._normalized = GL_FALSE;
+            texVAO._stride = 8 * sizeof(vertices[0]);
+            texVAO._offset = (void*)(6 * sizeof(vertices[0]));
+            vaos.push_back(texVAO);
+            std::vector< std::string > texturFilenames = {
+                "res/images/lion.png"
+            };
+            pbr::core::vaoMain = new pbr::core::PBRVertexArrayInterface< float >(
+                pbr::core::vertices, 
+                vaos,
+                texturFilenames,
+                pbr::util::flags::PBR_BUFFER_INDEX_BUFFER_FLAG_BIT | pbr::util::flags::PBR_BUFFER_TEXTURE_FLAG_BIT,
+                pbr::core::indices);
             return pbr::util::flags::PBR_OK;
         }
 

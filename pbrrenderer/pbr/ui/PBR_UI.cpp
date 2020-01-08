@@ -71,14 +71,14 @@ namespace pbr {
             glfwMakeContextCurrent(pbr::ui::window);
             glfwSwapInterval(0);
             GLFWimage windowIcon[1];
-            windowIcon[0].pixels = pbr::util::loadSTBI(
+            windowIcon[0].pixels = pbr::util::io::loadSTBI(
                 pbr::util::defaults::APPLICATION_ICON,
                 &windowIcon[0].width,
                 &windowIcon[0].height,
                 0,
                 4);
             glfwSetWindowIcon(pbr::ui::window, 1, windowIcon);
-            pbr::util::freeSTBI(windowIcon[0].pixels);
+            pbr::util::io::freeSTBI(windowIcon[0].pixels);
             glfwSetInputMode(pbr::ui::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
             glfwSetFramebufferSizeCallback(pbr::ui::window, pbr::core::framebufferResizeCB);
             glfwSetCursorPosCallback(pbr::ui::window, pbr::core::mouseMoveCB);
