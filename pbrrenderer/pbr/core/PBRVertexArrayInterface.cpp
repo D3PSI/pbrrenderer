@@ -15,7 +15,10 @@ pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vect
     const std::vector< std::string > _texPaths,
     const pbr::util::flags::PBR_FLAGS _flags,
     const std::vector< uint32_t >& _iData) : flags(_flags) {
-    this->size = _vData.size() / _vaos.size();
+    uint32_t valsPerVert = 0;
+    for(auto vao : _vaos) valsPerVert += vao._size;
+    this->size = _vData.size() / valsPerVert;
+    if(_flags & pbr::util::flags::PBR_BUFFER_INDEX_BUFFER_FLAG_BIT) this->size = _iData.size();
     glGenVertexArrays(1, &this->VAO);
     glGenBuffers(1, &this->VBO);
     glBindVertexArray(this->VAO);

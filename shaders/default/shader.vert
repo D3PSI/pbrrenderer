@@ -1,5 +1,5 @@
 /**
- * @file main/shader.vert
+ * @file default/shader.vert
  * @brief Implements a vertex shader for all major calculations of a vertex' color
  * @author D3PSI
  */
