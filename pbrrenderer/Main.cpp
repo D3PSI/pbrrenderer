@@ -26,7 +26,7 @@ int main() {
     pbr::pbrSize(1280, 720);
     pbr::pbrLoadingScreenImage("res/images/lion.png");
     pbr::pbrApplicationIcon("res/images/lion-cropped.png");
-    pbr::pbrDisplayMode(pbr::util::flags::PBR_WINDOWED);
+    pbr::pbrDisplayMode(pbr::util::flags::PBR_FULLSCREEN);
     pbr::pbrDefaultKeyBindings();
     pbr::pbrKeyboardInputCallback(keyboardInputCallback);
     return pbr::pbrExecute();

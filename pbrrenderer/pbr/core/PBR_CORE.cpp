@@ -26,10 +26,10 @@ namespace pbr {
         pbr::core::PBRCameraBase* camera = nullptr;
 
         std::vector< float > vertices = {
-            0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-           -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-           -0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.5f, 0.0f, 1.0f
+            0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+           -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+           -0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.5f, 1.0f, 0.0f
         };
 
         std::vector< uint32_t > indices = {
@@ -106,7 +106,7 @@ namespace pbr {
             glm::mat4 model = glm::mat4(1.0f);
             glm::mat4 view = camera->lookAt();
             glm::mat4 projection = glm::perspective(static_cast< float >(glm::radians(camera->fov())), width / static_cast< float >(height), 0.1f, 100.0f);
-            model = glm::rotate(model, static_cast< float >(glfwGetTime() * glm::radians(90.0f)), glm::vec3(0.0, 0.0, 1.0));
+            model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
             pbr::core::shaderTextures->upload(model, "m");
             pbr::core::shaderTextures->upload(view, "v");
             pbr::core::shaderTextures->upload(projection, "p");
