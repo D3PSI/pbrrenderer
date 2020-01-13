@@ -50,22 +50,22 @@ namespace pbrEx {
         glEnable(GL_DEPTH_TEST);
         pbrEx::cubeShader = new pbr::core::PBRShader("cubes");
         std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > vaos;
-        pbr::util::initializers::PBRVertexAttributeArrayInitializer posVAO = {};
-        posVAO._index = 0;
-        posVAO._size = 3;
-        posVAO._type = GL_FLOAT;
-        posVAO._normalized = GL_FALSE;
-        posVAO._stride = 6 * sizeof(vertices[0]);
-        posVAO._offset = (void*)0;
-        vaos.push_back(posVAO);
-        pbr::util::initializers::PBRVertexAttributeArrayInitializer colVAO = {};
-        colVAO._index = 1;
-        colVAO._size = 3;
-        colVAO._type = GL_FLOAT;
-        colVAO._normalized = GL_FALSE;
-        colVAO._stride = 6 * sizeof(vertices[0]);
-        colVAO._offset = (void*)(3 * sizeof(vertices[0]));
-        vaos.push_back(colVAO);
+        pbr::util::initializers::PBRVertexAttributeArrayInitializer posVA = {};
+        posVA._index = 0;
+        posVA._size = 3;
+        posVA._type = GL_FLOAT;
+        posVA._normalized = GL_FALSE;
+        posVA._stride = 6 * sizeof(vertices[0]);
+        posVA._offset = (void*)0;
+        vaos.push_back(posVA);
+        pbr::util::initializers::PBRVertexAttributeArrayInitializer colVA = {};
+        colVA._index = 1;
+        colVA._size = 3;
+        colVA._type = GL_FLOAT;
+        colVA._normalized = GL_FALSE;
+        colVA._stride = 6 * sizeof(vertices[0]);
+        colVA._offset = (void*)(3 * sizeof(vertices[0]));
+        vaos.push_back(colVA);
         pbrEx::cubeMesh = new pbr::core::PBRMesh< float >(
             pbrEx::vertices, 
             vaos,
@@ -116,8 +116,8 @@ int main() {
     pbr::pbrTitle("PBR by D3PSI");
     pbr::pbrSize(1280, 720);
     pbr::pbrLoadingScreenImage("res/images/lion.png");
-    pbr::pbrApplicationIcon("res/images/lion-cropped.png");
-    pbr::pbrDisplayMode(pbr::util::flags::PBR_FULLSCREEN);
+    pbr::pbrApplicationIcon("res/images/icon-32.png");
+    pbr::pbrDisplayMode(pbr::util::flags::PBR_WINDOWED);
     pbr::pbrDefaultKeyBindings();
     pbr::pbrKeyboardInputCallback(pbrEx::keyboardInputCallback);
     pbr::pbrInitCallback(pbrEx::init);
