@@ -1,16 +1,16 @@
 /**
- * @file PBRVertexArrayInterface.cpp
- * @brief Defines a wrapper for VAOs
+ * @file PBRMesh.cpp
+ * @brief Defines a renderable mesh object
  * @author D3PSI
  */
-#ifndef PBR_VERTEX_ARRAY_INTERFACE_CPP
-#define PBR_VERTEX_ARRAY_INTERFACE_CPP
+#ifndef PBR_MESH_CPP
+#define PBR_MESH_CPP
 
-#include "PBRVertexArrayInterface.hpp"
+#include "PBRMesh.hpp"
 
 
 template< typename T >
-pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vector< T >& _vData, 
+pbr::core::PBRMesh< T >::PBRMesh(const std::vector< T >& _vData, 
     const std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > _vaos,
     const std::vector< std::string > _texPaths,
     const pbr::util::flags::PBR_FLAGS _flags,
@@ -37,7 +37,7 @@ pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vect
         if(!(_flags & pbr::util::flags::PBR_BUFFER_TEXTURE_FLAG_BIT))
             pbr::util::io::raise("Required texture flag bit not set!");
         for(std::string path : _texPaths)    
-            this->textures.push_back(new pbr::core::PBRTextureInterface(path));
+            this->textures.push_back(new pbr::core::PBRTexture(path));
     }
     glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
     glBufferData(
@@ -60,7 +60,7 @@ pbr::core::PBRVertexArrayInterface< T >::PBRVertexArrayInterface(const std::vect
 }
 
 template< typename T >
-pbr::util::flags::PBR_STATUS pbr::core::PBRVertexArrayInterface< T >::draw() {
+pbr::util::flags::PBR_STATUS pbr::core::PBRMesh< T >::draw() {
     if(this->flags & pbr::util::flags::PBR_BUFFER_TEXTURE_FLAG_BIT)
         for(uint32_t i = 0; i < this->textures.size(); i++) {
             glActiveTexture(GL_TEXTURE0 + i);
@@ -75,11 +75,11 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRVertexArrayInterface< T >::draw() {
 } 
 
 template< typename T >
-pbr::core::PBRVertexArrayInterface< T >::~PBRVertexArrayInterface() {
+pbr::core::PBRMesh< T >::~PBRMesh() {
     for(auto tex : this->textures)
         delete tex;
 }
 
-template class pbr::core::PBRVertexArrayInterface< float >;
+template class pbr::core::PBRMesh< float >;
 
-#endif      // PBR_VERTEX_ARRAY_INTERFACE_CPP
+#endif      // PBR_MESH_CPP

@@ -6,7 +6,7 @@
 #ifndef PBR_FPS_CAMERA_HPP
 #define PBR_FPS_CAMERA_HPP
 
-#include "PBRCameraBase.hpp"
+#include "PBRCamera.hpp"
 
 
 namespace pbr {
@@ -14,9 +14,9 @@ namespace pbr {
     namespace core {
 
         class PBRFPSCamera :
-        public pbr::core::PBRCameraBase
+        public pbr::core::PBRCamera
         {
-            using pbr::core::PBRCameraBase::PBRCameraBase;
+            using pbr::core::PBRCamera::PBRCamera;
         public:
             
             /**

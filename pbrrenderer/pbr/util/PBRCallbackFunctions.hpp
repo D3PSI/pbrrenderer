@@ -19,6 +19,21 @@ namespace pbr {
          */
         typedef void (*PBRKeyboardInputCallbackFun)(GLFWwindow* _window);
 
+        /**
+         * Defines a callback function for rendering operations
+         */
+        typedef void (*PBRRenderCallbackFun)(void);
+
+        /**
+         * Defines a callback function for resource loading
+         */
+        typedef void (*PBRInitCallbackFun)(void);
+
+        /**
+         * Defines a callback function for garbage collection
+         */
+        typedef void (*PBRCleanCallbackFun)(void);
+
     }
 
 }

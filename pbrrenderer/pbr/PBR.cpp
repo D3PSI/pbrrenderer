@@ -13,7 +13,7 @@
 #define PBR_CPP
 
 #include "PBR.hpp"
-#include "core/PBRCameraBase.hpp"
+#include "core/PBRCamera.hpp"
 
 
 namespace pbr {
@@ -22,13 +22,8 @@ namespace pbr {
         return pbr::core::init();
     }
 
-    pbr::util::flags::PBR_STATUS pbrExecute() {
+    pbr::util::flags::PBR_STATUS pbr() {
         return pbr::core::execute();
-    }
-
-    pbr::util::flags::PBR_STATUS pbrClean() {
-        pbr::core::clean();
-        return pbr::util::flags::PBR_OK;
     }
 
     pbr::util::flags::PBR_STATUS pbrSize(uint32_t _width, uint32_t _height) {
@@ -57,14 +52,37 @@ namespace pbr {
         return pbr::util::flags::PBR_OK;
     }
 
+    pbr::util::flags::PBR_STATUS pbrDefaultKeyBindings(bool _enable) {
+        pbr::util::defaults::DEFAULT_KEY_BINDINGS = _enable;
+        return pbr::util::flags::PBR_OK;
+    }
+
     pbr::util::flags::PBR_STATUS pbrKeyboardInputCallback(pbr::util::PBRKeyboardInputCallbackFun _cbfun) {
         pbr::util::defaults::KEY_INPUT_CB = _cbfun;
         return pbr::util::flags::PBR_OK;
     }
 
-    pbr::util::flags::PBR_STATUS pbrDefaultKeyBindings(bool _enable) {
-        pbr::util::defaults::DEFAULT_KEY_BINDINGS = _enable;
+    pbr::util::flags::PBR_STATUS pbrRenderCallback(pbr::util::PBRRenderCallbackFun _cbfun) {
+        pbr::util::defaults::RENDER_CB = _cbfun;
         return pbr::util::flags::PBR_OK;
+    }
+
+    pbr::util::flags::PBR_STATUS pbrInitCallback(pbr::util::PBRInitCallbackFun _cbfun) {
+        pbr::util::defaults::INIT_CB = _cbfun;
+        return pbr::util::flags::PBR_OK;
+    }
+
+    pbr::util::flags::PBR_STATUS pbrCleanCallback(pbr::util::PBRCleanCallbackFun _cbfun) {
+        pbr::util::defaults::CLEAN_CB = _cbfun;
+        return pbr::util::flags::PBR_OK;
+    }
+
+    glm::mat4 pbrGetViewMatrix() {
+        return pbr::core::getViewMatrix();
+    }
+
+    glm::mat4 pbrGetProjectionMatrix() {
+        return pbr::core::getProjectionMatrix();
     }
 
     uint32_t pbrGetCurrentWidth() {

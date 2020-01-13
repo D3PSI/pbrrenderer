@@ -1,10 +1,10 @@
 /**
- * @file PBRTextureInterface.hpp
- * @brief Contains declarations of a texture interface
+ * @file PBRTexture.hpp
+ * @brief Contains declarations of a texture object
  * @author D3PSI
  */
-#ifndef PBR_TEXTURE_INTERFACE_HPP
-#define PBR_TEXTURE_INTERFACE_HPP
+#ifndef PBR_TEXTURE_HPP
+#define PBR_TEXTURE_HPP
 
 #include "../util/flags/PBR_UTIL_FLAGS.hpp"
 
@@ -15,7 +15,7 @@ namespace pbr {
 
     namespace core {
 
-        class PBRTextureInterface {
+        class PBRTexture {
         public:
 
             /**
@@ -23,7 +23,7 @@ namespace pbr {
              * @param _path The path to the texture file on disk
              * @param _flags The options to set
              */
-            PBRTextureInterface(std::string _path, pbr::util::flags::PBR_FLAGS _flags = pbr::util::flags::PBR_FLAG_CLEAR_FLAG_BITS);
+            PBRTexture(std::string _path, pbr::util::flags::PBR_FLAGS _flags = pbr::util::flags::PBR_FLAG_CLEAR_FLAG_BITS);
 
             /**
              * Binds a texture
@@ -34,7 +34,7 @@ namespace pbr {
             /**
              * Default destructor
              */
-            ~PBRTextureInterface(void);
+            ~PBRTexture(void);
 
         private:
 
@@ -50,4 +50,4 @@ namespace pbr {
 
 }
 
-#endif      // PBR_TEXTURE_INTERFACE_HPP
+#endif      // PBR_TEXTURE_HPP

@@ -1,23 +1,23 @@
 /**
- * @file PBRShaderInterface.cpp
+ * @file PBRShader.cpp
  * @brief Defines a wrapper for shaders
  * @author D3PSI
  */
-#ifndef PBR_SHADER_INTERFACE_CPP
-#define PBR_SHADER_INTERFACE_CPP
+#ifndef PBR_SHADER_CPP
+#define PBR_SHADER_CPP
 
-#include "PBRShaderInterface.hpp"
+#include "PBRShader.hpp"
 
 
-std::string pbr::core::PBRShaderInterface::SHADER_BASE_DIR = "shaders/";
+std::string pbr::core::PBRShader::SHADER_BASE_DIR = "shaders/";
 
-pbr::core::PBRShaderInterface::PBRShaderInterface(std::string _shaderSet) {
+pbr::core::PBRShader::PBRShader(std::string _shaderSet) {
     this->shaderSet = _shaderSet;
     int succ;
     char infoLog[1024];
     std::vector< std::string > contents;
     for(const auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(
-        (pbr::core::PBRShaderInterface::SHADER_BASE_DIR + _shaderSet)), {})) {
+        (pbr::core::PBRShader::SHADER_BASE_DIR + _shaderSet)), {})) {
         std::string path = std::string(entry.path().c_str());
         std::string ext = path.substr(path.find_last_of("."));
         if(ext == ".comp")
@@ -67,12 +67,12 @@ pbr::core::PBRShaderInterface::PBRShaderInterface(std::string _shaderSet) {
     }
 }
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::bind() {
+pbr::util::flags::PBR_STATUS pbr::core::PBRShader::bind() {
     glUseProgram(this->ID);
     return pbr::util::flags::PBR_OK;
 }
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(glm::mat4 _mat, const std::string _name) {
+pbr::util::flags::PBR_STATUS pbr::core::PBRShader::upload(glm::mat4 _mat, const std::string _name) {
     glUniformMatrix4fv(
         glGetUniformLocation(this->ID, _name.c_str()), 
         1, 
@@ -81,27 +81,27 @@ pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(glm::mat4 _ma
     return pbr::util::flags::PBR_OK;
 }
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(glm::vec3 _vec, const std::string _name) {
+pbr::util::flags::PBR_STATUS pbr::core::PBRShader::upload(glm::vec3 _vec, const std::string _name) {
     glUniform3fv(glGetUniformLocation(this->ID, _name.c_str()), 1, glm::value_ptr(_vec));
     return pbr::util::flags::PBR_OK;
 }
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(float _val, const std::string _name) {
+pbr::util::flags::PBR_STATUS pbr::core::PBRShader::upload(float _val, const std::string _name) {
     glUniform1f(glGetUniformLocation(ID, _name.c_str()), _val);
     return pbr::util::flags::PBR_OK;
 }
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(int32_t _val, const std::string _name) {
+pbr::util::flags::PBR_STATUS pbr::core::PBRShader::upload(int32_t _val, const std::string _name) {
     glUniform1i(glGetUniformLocation(ID, _name.c_str()), _val);
     return pbr::util::flags::PBR_OK;
 }
 
-pbr::util::flags::PBR_STATUS pbr::core::PBRShaderInterface::upload(bool _val, const std::string _name) {
+pbr::util::flags::PBR_STATUS pbr::core::PBRShader::upload(bool _val, const std::string _name) {
     return this->upload(static_cast< int32_t >(_val), _name);
 }
 
-pbr::core::PBRShaderInterface::~PBRShaderInterface() {
+pbr::core::PBRShader::~PBRShader() {
     
 }
 
-#endif      // PBR_SHADER_INTERFACE_CPP
+#endif      // PBR_SHADER_CPP

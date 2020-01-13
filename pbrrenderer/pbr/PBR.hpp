@@ -21,8 +21,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "core/PBR_CORE.hpp"
-#include "core/PBRShaderInterface.hpp"
-#include "core/PBRVertexArrayInterface.hpp"
+#include "core/PBRShader.hpp"
+#include "core/PBRMesh.hpp"
 #include "ui/PBR_UI.hpp"
 #include "ui/PBRLoadingScreen.hpp"
 #include "util/PBR_UTIL.hpp"
@@ -49,13 +49,7 @@ namespace pbr {
      * Starts the main application
      * @return Returns 0 or bigger on success, returns a negative number on failure
      */
-    pbr::util::flags::PBR_STATUS pbrExecute(void);
-
-    /**
-     * Cleans allocated resources
-     * @return Returns 0 or bigger on success, returns a negative number on failure
-     */
-    pbr::util::flags::PBR_STATUS pbrClean(void);
+    pbr::util::flags::PBR_STATUS pbr(void);
 
     /**
      * Sets the width and height of the application window
@@ -94,6 +88,13 @@ namespace pbr {
     pbr::util::flags::PBR_STATUS pbrDisplayMode(pbr::util::flags::PBR_DISPLAY_MODE _mode);
 
     /**
+     * Enables default key bindings for a PBR application
+     * @param _enable Enable with true or disable with false
+     * @return Returns 0 or bigger on success, returns a negative number on failure
+     */
+    pbr::util::flags::PBR_STATUS pbrDefaultKeyBindings(bool _enable = true);
+
+    /**
      * Sets the keyboard input callback function
      * @param _cbfun The callback function
      * @return Returns 0 or bigger on success, returns a negative number on failure
@@ -101,11 +102,37 @@ namespace pbr {
     pbr::util::flags::PBR_STATUS pbrKeyboardInputCallback(pbr::util::PBRKeyboardInputCallbackFun _cbfun);
 
     /**
-     * Enables default key bindings for a PBR application
-     * @param _enable Enable with true or disable with false
+     * Sets the rendering callback function
+     * @param _cbfun The callback function
      * @return Returns 0 or bigger on success, returns a negative number on failure
      */
-    pbr::util::flags::PBR_STATUS pbrDefaultKeyBindings(bool _enable = true);
+    pbr::util::flags::PBR_STATUS pbrRenderCallback(pbr::util::PBRRenderCallbackFun _cbfun);
+
+    /**
+     * Sets the init callback function
+     * @param _cbfun The callback function
+     * @return Returns 0 or bigger on success, returns a negative number on failure
+     */
+    pbr::util::flags::PBR_STATUS pbrInitCallback(pbr::util::PBRInitCallbackFun _cbfun);
+
+    /**
+     * Sets the garbage collection callback function
+     * @param _cbfun The callback function
+     * @return Returns 0 or bigger on success, returns a negative number on failure 
+     */
+    pbr::util::flags::PBR_STATUS pbrCleanCallback(pbr::util::PBRCleanCallbackFun _cbfun);
+
+    /**
+     * Builds the view matrix
+     * @return Returns the view matrix
+     */
+    glm::mat4 pbrGetViewMatrix(void);
+
+    /**
+     * Builds the projection matrix
+     * @return Returns the projection matrix
+     */
+    glm::mat4 pbrGetProjectionMatrix(void);
 
     /**
      * Queries the current width of the window
@@ -118,6 +145,24 @@ namespace pbr {
      * @return Returns the current height of the GLFWwindow
      */
     uint32_t pbrGetCurrentHeight(void);
+
+    /**
+     * Queries the current yaw of the camera
+     * @return Returns the current yaw of the camera
+     */
+    float pbrGetCurrentYaw(void);
+
+    /**
+     * Queries the current pitch of the camera
+     * @return Returns the current pitch of the camera
+     */
+    float pbrGetCurrentPitch(void);
+
+    /**
+     * Queries the current roll of the camera
+     * @return Returns the current roll of the camera
+     */
+    float pbrGetCurrentRoll(void);
 
 }
 

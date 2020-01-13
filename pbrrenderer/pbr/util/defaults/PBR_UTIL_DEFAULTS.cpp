@@ -33,6 +33,9 @@ namespace pbr {
             bool DEFAULT_KEY_BINDINGS = false;
 
             pbr::util::PBRKeyboardInputCallbackFun KEY_INPUT_CB = nullptr;
+            pbr::util::PBRRenderCallbackFun RENDER_CB = nullptr;
+            pbr::util::PBRInitCallbackFun INIT_CB = nullptr;
+            pbr::util::PBRCleanCallbackFun CLEAN_CB = nullptr;
 
         }
 

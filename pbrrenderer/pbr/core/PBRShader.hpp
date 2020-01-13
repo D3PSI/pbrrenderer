@@ -1,10 +1,10 @@
 /**
- * @file PBRShaderInterface.hpp
+ * @file PBRShader.hpp
  * @brief Declares a wrapper for shaders
  * @author D3PSI
  */
-#ifndef PBR_SHADER_INTERFACE_HPP
-#define PBR_SHADER_INTERFACE_HPP
+#ifndef PBR_SHADER_HPP
+#define PBR_SHADER_HPP
 
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -21,7 +21,7 @@ namespace pbr {
 
     namespace core {
 
-        class PBRShaderInterface
+        class PBRShader
         {
         public:
 
@@ -38,7 +38,7 @@ namespace pbr {
              *      {_shaderSet}/[*].tcs for a tesselation control shader
              * The function will automatically load and compile the shaders it finds
              */
-            PBRShaderInterface(std::string _shaderSet);
+            PBRShader(std::string _shaderSet);
 
             /**
              * Binds the shader program to use during rendering
@@ -89,7 +89,7 @@ namespace pbr {
             /**
              * Default destructor
              */
-            ~PBRShaderInterface(void);
+            ~PBRShader(void);
 
         private:
 
@@ -108,4 +108,4 @@ namespace pbr {
 
 }
 
-#endif      // PBR_SHADER_INTERFACE_HPP
+#endif      // PBR_SHADER_HPP

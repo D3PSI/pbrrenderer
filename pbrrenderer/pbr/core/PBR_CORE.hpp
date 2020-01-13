@@ -75,16 +75,16 @@ namespace pbr {
         pbr::util::flags::PBR_STATUS render(void);
 
         /**
-         * Initializes shaders
-         * @return Returns 0 or bigger on success, returns a negative number on failure
+         * Builds the view matrix
+         * @return Returns the view matrix
          */
-        pbr::util::flags::PBR_STATUS setupShaders(void);
+        glm::mat4 getViewMatrix(void);
 
         /**
-         * Initializes buffers
-         * @return Returns 0 or bigger on success, returns a negative number on failure
+         * Builds the projection matrix
+         * @return Returns the projection matrix
          */
-        pbr::util::flags::PBR_STATUS setupBuffers(void);
+        glm::mat4 getProjectionMatrix(void);
 
         /**
          * Callback function for window resize events through GLFW

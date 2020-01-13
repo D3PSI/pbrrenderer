@@ -8,7 +8,7 @@
 
 #include "PBR_UTIL_IO.hpp"
 #include "../../core/PBR_CORE.hpp"
-#include "../../core/PBRCameraBase.hpp"
+#include "../../core/PBRCamera.hpp"
 #include "../PBR_UTIL.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION

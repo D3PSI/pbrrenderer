@@ -38,6 +38,9 @@ namespace pbr {
 
             extern bool DEFAULT_KEY_BINDINGS;
             extern pbr::util::PBRKeyboardInputCallbackFun KEY_INPUT_CB;
+            extern pbr::util::PBRRenderCallbackFun RENDER_CB;
+            extern pbr::util::PBRRenderCallbackFun INIT_CB;
+            extern pbr::util::PBRCleanCallbackFun CLEAN_CB;
 
         }
 

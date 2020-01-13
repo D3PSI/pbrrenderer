@@ -1,10 +1,10 @@
 /**
- * @file PBRCameraBase.hpp
+ * @file PBRCamera.hpp
  * @brief Contains declarations of a base camera class
  * @author D3PSI
  */
-#ifndef PBR_CAMERA_BASE_HPP
-#define PBR_CAMERA_BASE_HPP
+#ifndef PBR_CAMERA_HPP
+#define PBR_CAMERA_HPP
 
 #include "../PBR.hpp"
 #include "../util/defaults/PBR_UTIL_DEFAULTS.hpp"
@@ -15,7 +15,7 @@ namespace pbr {
 
     namespace core {
 
-        class PBRCameraBase 
+        class PBRCamera 
         {
         public:
 
@@ -27,7 +27,7 @@ namespace pbr {
              * @param _pitch The initial pitch-value of the camera object
              * @param _roll The initial roll-value of the camera object
              */
-            PBRCameraBase(
+            PBRCamera(
                 glm::vec3   _pos    = ORIGIN,
                 glm::vec3   _up     = Y_AXIS,
                 float       _yaw    = pbr::util::defaults::YAW,
@@ -37,7 +37,7 @@ namespace pbr {
             /**
              * Default destructor
              */
-            ~PBRCameraBase(void) = default;
+            ~PBRCamera(void) = default;
 
             /**
              * Moves the camera object
@@ -138,10 +138,10 @@ namespace pbr {
 
         };
 
-        extern pbr::core::PBRCameraBase* camera;
+        extern pbr::core::PBRCamera* camera;
 
     }
 
 }
 
-#endif      // PBR_CAMERA_BASE_HPP
+#endif      // PBR_CAMERA_HPP

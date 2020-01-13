@@ -1,14 +1,14 @@
 /**
- * @file PBRVertexArrayInterface.hpp
- * @brief Declares a wrapper for VAOs
+ * @file PBRMesh.hpp
+ * @brief Declares a a renderable mesh object
  * @author D3PSI
  */
-#ifndef PBR_VERTEX_ARRAY_INTERFACE_HPP
-#define PBR_VERTEX_ARRAY_INTERFACE_HPP
+#ifndef PBR_MESH_HPP
+#define PBR_MESH_HPP
 
 #include "../PBR.hpp"
 #include "../util/initializers/PBR_UTIL_INITIALIZERS.hpp"
-#include "PBRTextureInterface.hpp"
+#include "PBRTexture.hpp"
 
 #include <vector>
 
@@ -18,7 +18,7 @@ namespace pbr {
     namespace core {
         
         template< typename T >
-        class PBRVertexArrayInterface 
+        class PBRMesh 
         {
         public:
 
@@ -30,7 +30,7 @@ namespace pbr {
              * @param _texPaths The paths to the texture files on disk
              * @param _iData The index data as an std::vector
              */
-            PBRVertexArrayInterface(const std::vector< T >& _vData, 
+            PBRMesh(const std::vector< T >& _vData, 
                 const std::vector< pbr::util::initializers::PBRVertexAttributeArrayInitializer > _vaos, 
                 const std::vector< std::string > _texPaths = std::vector< std::string >(),
                 const pbr::util::flags::PBR_FLAGS _flags = pbr::util::flags::PBR_FLAG_CLEAR_FLAG_BITS,
@@ -45,7 +45,7 @@ namespace pbr {
             /**
              * Default destructor
              */
-            ~PBRVertexArrayInterface(void);
+            ~PBRMesh(void);
 
         private:
 
@@ -56,7 +56,7 @@ namespace pbr {
             uint32_t EBO;
             uint32_t size;
 
-            std::vector< PBRTextureInterface* > textures;
+            std::vector< PBRTexture* > textures;
 
         };
 
@@ -65,4 +65,4 @@ namespace pbr {
 }
 
 
-#endif      // PBR_VERTEX_ARRAY_INTERFACE_HPP
+#endif      // PBR_MESH_HPP
