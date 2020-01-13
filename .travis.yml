@@ -13,7 +13,7 @@ addons:
       - gcc-7
   
 install:
-  - sudo ./INSTALL.sh
+  - sudo ./INSTALL.sh --no-build
 
 script: 
   - make

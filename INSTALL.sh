@@ -4,6 +4,15 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 1>&2
    exit 1
 else
+    build=true
+    while [ "$1" != "" ]; do
+        case $1 in
+            --no-build )            shift
+                                    build=false
+                                    ;;
+        esac
+        shift
+    done
     arch=$(uname -m)
     kernel=$(uname -r)
     declare -A osInfo;
@@ -39,7 +48,6 @@ else
     if [[ ${pkgman} == yum ]]; then
         if yum -y update && yum -y install cmake make pkgconf-pkg-config gcc g++ glm-devel glfw glfw-devel assimp assimp-devel SDL2 SDL2-devel SDL2_image SDL2_image-devel mesa-libGL-devel boost boost-system boost-devel boost-filesystem; then
             echo "Successfully installed dependencies for your system." 
-            echo "Building project..."
         else
             echo "Failed to install dependencies!"
             exit 1
@@ -47,7 +55,6 @@ else
     elif [[ ${pkgman} == pacman ]]; then
         if pacman -Syu --noconfirm && pacman -Sy --noconfirm cmake make pkg-config gcc gdb glm glfw-${session} assimp sdl2 sdl2_image boost boost-libs; then
             echo "Successfully installed dependencies for your system." 
-            echo "Building project..."
         else
             echo "Failed to install dependencies!"
             exit 1
@@ -55,7 +62,6 @@ else
     elif [[ ${pkgman} == apt ]]; then
         if apt-get -y update && apt-get -y --fix-missing install make pkg-config gcc g++ gdb libglfw3 libglfw3-dev libglm-dev libassimp-dev assimp-utils libegl1-mesa-dev libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libboost-all-dev; then
             echo "Successfully installed dependencies for your system." 
-            echo "Building project..."
         else
             echo "Failed to install dependencies!"
             exit 1
@@ -64,21 +70,24 @@ else
         echo "No supported package manager found!"
         exit 1
     fi
-    if make; then
-        /bin/cp -Rf "bin/Linux/x64/pbr" "pbr"
-        echo "Built the project. Execute it by running './pbr'. Enjoy!"
-    else
-        echo "Failed to build the project!"
-        exit 1
-    fi
-    echo "Creating shortcuts..."
-    if mkdir -p /usr/bin/pbrrenderer; then
-        /bin/cp -Rf res/ shaders/ pbr PBR\ by\ D3PSI.desktop /usr/bin/pbrrenderer/
-        ln -s -f /usr/bin/pbrrenderer/PBR\ by\ D3PSI.desktop /usr/share/applications/PBR\ by\ D3PSI.desktop
-        echo "Successfully installed shortcuts"
-    else
-        echo "Failed to install shortcuts!"
-        exit
+    if [[ "$build" = true ]]; then
+        echo "Building project..."
+        if make; then
+            /bin/cp -Rf "bin/Linux/x64/pbr" "pbr"
+            echo "Built the project. Execute it by running './pbr'. Enjoy!"
+        else
+            echo "Failed to build the project!"
+            exit 1
+        fi
+        echo "Creating shortcuts..."
+        if mkdir -p /usr/bin/pbrrenderer; then
+            /bin/cp -Rf res/ shaders/ pbr PBR\ by\ D3PSI.desktop /usr/bin/pbrrenderer/
+            ln -s -f /usr/bin/pbrrenderer/PBR\ by\ D3PSI.desktop /usr/share/applications/PBR\ by\ D3PSI.desktop
+            echo "Successfully installed shortcuts"
+        else
+            echo "Failed to install shortcuts!"
+            exit
+        fi
     fi
     exit 0
 fi
