@@ -43,6 +43,8 @@ namespace pbrEx {
     pbr::core::PBRMesh< float >* cubeMesh;
     pbr::core::PBRShader* cubeShader;
 
+    bool lockCube = true;
+
     /**
      * Serves as a callback function for initializing resources
      */
@@ -80,7 +82,11 @@ namespace pbrEx {
     void render() {
         pbrEx::cubeShader->bind();
         glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 view = glm::mat4(glm::mat3(pbr::pbrGetViewMatrix()));
+        glm::mat4 view = glm::mat4(1.0f);
+        if(pbrEx::lockCube)
+            view = glm::mat4(glm::mat3(pbr::pbrGetViewMatrix()));
+        else
+            view = pbr::pbrGetViewMatrix();
         glm::mat4 projection = pbr::pbrGetProjectionMatrix();
         model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
         pbrEx::cubeShader->upload(model, "m");
@@ -91,24 +97,30 @@ namespace pbrEx {
             0, 
             pbr::pbrGetCurrentWidth() / 2, 
             pbr::pbrGetCurrentHeight() / 2);
+        glEnable(GL_DEPTH_TEST);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         pbrEx::cubeMesh->draw();
         glViewport(
             pbr::pbrGetCurrentWidth() / 2, 
             0, 
             pbr::pbrGetCurrentWidth() / 2, 
             pbr::pbrGetCurrentHeight() / 2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pbrEx::cubeMesh->draw();
         glViewport(
             0, 
             pbr::pbrGetCurrentHeight() / 2,
             pbr::pbrGetCurrentWidth() / 2, 
             pbr::pbrGetCurrentHeight() / 2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         pbrEx::cubeMesh->draw();
         glViewport(
             pbr::pbrGetCurrentWidth() / 2,
             pbr::pbrGetCurrentHeight() / 2,
             pbr::pbrGetCurrentWidth() / 2, 
             pbr::pbrGetCurrentHeight() / 2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glDisable(GL_DEPTH_TEST);
         pbrEx::cubeMesh->draw();
         glViewport(
             0, 
@@ -130,8 +142,14 @@ namespace pbrEx {
     * @param _window A pointer to the GLFWwindow
     */
     void keyboardInputCallback(GLFWwindow* _window) {
-        if(glfwGetKey(_window, GLFW_KEY_SPACE) == GLFW_PRESS)
-            std::cout << "This is an example on how you can define own key actions.\n";
+        if(glfwGetKey(_window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            static double start = glfwGetTime() - 1.0;      // -1.0 prevents bug for first time switch
+            double now = glfwGetTime();
+            if(now - start > 0.5) {
+                pbrEx::lockCube = !pbrEx::lockCube;
+                start = glfwGetTime();
+            }
+        }
     }
 
 }
