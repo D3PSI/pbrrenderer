@@ -151,7 +151,35 @@ Here is the base program being used in the repository for testing:
             pbrEx::cubeShader->upload(model, "m");
             pbrEx::cubeShader->upload(view, "v");
             pbrEx::cubeShader->upload(projection, "p");
+            glViewport(
+                0, 
+                0, 
+                pbr::pbrGetCurrentWidth() / 2, 
+                pbr::pbrGetCurrentHeight() / 2);
             pbrEx::cubeMesh->draw();
+            glViewport(
+                pbr::pbrGetCurrentWidth() / 2, 
+                0, 
+                pbr::pbrGetCurrentWidth() / 2, 
+                pbr::pbrGetCurrentHeight() / 2);
+            pbrEx::cubeMesh->draw();
+            glViewport(
+                0, 
+                pbr::pbrGetCurrentHeight() / 2,
+                pbr::pbrGetCurrentWidth() / 2, 
+                pbr::pbrGetCurrentHeight() / 2);
+            pbrEx::cubeMesh->draw();
+            glViewport(
+                pbr::pbrGetCurrentWidth() / 2,
+                pbr::pbrGetCurrentHeight() / 2,
+                pbr::pbrGetCurrentWidth() / 2, 
+                pbr::pbrGetCurrentHeight() / 2);
+            pbrEx::cubeMesh->draw();
+            glViewport(
+                0, 
+                0, 
+                pbr::pbrGetCurrentWidth(), 
+                pbr::pbrGetCurrentHeight());
         }
 
         /**
