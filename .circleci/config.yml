@@ -7,5 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: ./INSTALL.sh --no-build
           name: Build
-          command: ./INSTALL.sh --no-build && make
+          command: make
