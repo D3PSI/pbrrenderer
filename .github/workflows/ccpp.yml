@@ -11,7 +11,9 @@ jobs:
         compiler: [ g++, clang++ ]
     name: ${{ matrix.compiler }} compilation on ${{ matrix.os }} 
     steps:
-      - uses: actions/checkout@master
-      - run: | 
-          sudo ./INSTALL.sh --no-build
-          make
+     - name: Checkout code
+       uses: actions/checkout@master
+     - name: Install dependencies
+       run: sudo ./INSTALL.sh --no-build
+     - name: Build
+       run: make
