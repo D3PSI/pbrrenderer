@@ -6,7 +6,7 @@
 [![C/C++ CI](https://github.com/D3PSI/pbrrenderer/workflows/C/C++%20CI/badge.svg)](https://github.com/D3PSI/pbrrenderer/actions?query=workflow%3A"C%2FC%2B%2B+CI")
 [![Build status](https://ci.appveyor.com/api/projects/status/6cp2udvipkuchs42/branch/master?svg=true)](https://ci.appveyor.com/project/D3PSI/pbrrenderer/branch/master)
 [![CircleCI](https://circleci.com/gh/D3PSI/pbrrenderer.svg?style=svg)](https://circleci.com/gh/D3PSI/pbrrenderer)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/D3PSI/pbrrenderer/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)](https://github.com/D3PSI/pbrrenderer/graphs/commit-activity)
 [![GitHub issues](https://img.shields.io/github/issues/D3PSI/pbrrenderer.svg)](https://github.com/D3PSI/pbrrenderer/issues/)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/D3PSI/pbrrenderer.svg)](https://github.com/D3PSI/pbrrenderer/issues?q=is%3Aissue+is%3Aclosed)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/D3PSI/pbrrenderer/compare)
